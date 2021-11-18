@@ -33,8 +33,8 @@ namespace Pijaca
             {
                 if (String.IsNullOrWhiteSpace(value))
                     throw new FormatException("Ime proizvoda ne može biti prazno!");
-                else if (value.Length > 10)
-                    throw new FormatException("Ime proizvoda ne smije biti duže od 10 karaktera!");
+                else if (value.Length > 20)
+                    throw new FormatException("Ime proizvoda ne smije biti duže od 20 karaktera!");
 
                 ime = value;
             }
