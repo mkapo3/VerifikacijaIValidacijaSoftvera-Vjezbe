@@ -122,7 +122,6 @@ namespace Cvjecara
         /// Potrebno je vratiti ukupnu ocjenu svježine cvijeća kao rezultat rada funkcije.
         /// Svježina cvijeća ne može biti manja od 0.0.
         /// </summary>
-        /// <param name="kriterijKlijenta"></param>
         /// <returns></returns>
         public double OdrediSvježinuCvijeća()
         {

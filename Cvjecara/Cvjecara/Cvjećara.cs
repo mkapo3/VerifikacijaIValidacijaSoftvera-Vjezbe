@@ -142,7 +142,7 @@ namespace Cvjecara
         public List<Poklon> DajSveNaručenePoklone(Mušterija m, double popust)
         {
             List<Poklon> pokloni = m.KupljeniPokloni.FindAll(poklon => poklon.PostotakPopusta == popust);
-            if (pokloni == null)
+            if (pokloni == null || pokloni.Count == 0)
                 throw new FormatException("Došlo je do greške! Pokušajte ponovo sa drugim parametrima zahtjeva.");
 
             return pokloni;
