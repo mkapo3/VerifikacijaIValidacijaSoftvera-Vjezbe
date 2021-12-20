@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pijaca", "Pijaca\Pijaca.csproj", "{549EEB88-F436-4803-A1D7-96A86D31858B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{6A86FD33-CCD0-4519-9B4B-8579F2E04215}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{549EEB88-F436-4803-A1D7-96A86D31858B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{549EEB88-F436-4803-A1D7-96A86D31858B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{549EEB88-F436-4803-A1D7-96A86D31858B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A86FD33-CCD0-4519-9B4B-8579F2E04215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A86FD33-CCD0-4519-9B4B-8579F2E04215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A86FD33-CCD0-4519-9B4B-8579F2E04215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A86FD33-CCD0-4519-9B4B-8579F2E04215}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
