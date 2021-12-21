@@ -115,7 +115,7 @@ namespace Pijaca
         {
             if (proizvodi.Count != količine.Count || proizvodi.Count != rokovi.Count)
                 throw new ArgumentException("Pogrešan unos parametara!");
-
+            
             for (int i = 0; i < proizvodi.Count; i++)
             {
                 if (!svi)

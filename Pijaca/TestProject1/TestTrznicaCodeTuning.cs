@@ -7,8 +7,12 @@ using System.Linq;
 namespace TestProject1
 {
     [TestClass]
-    public class TestNaruciProizvode
+    public class TestTrznicaCodeTuning
     {
+
+        //ZADATAK 2
+        //CODETUNING
+
         [TestMethod]
         public void TestRadSaProdavacimaNoCT()
         {
@@ -16,7 +20,7 @@ namespace TestProject1
             for (int i = 0; i < 50000; i++)
             {
                 Prodavač prodavac1 = new Prodavač("MuharemJedan" + i, "Sifra", DateTime.Now.AddDays(-45), 40);
-                trznica.RadSaProdavačimaRefaktoring(prodavac1, "Dodavanje", 100+i);
+                trznica.RadSaProdavačimaRefaktoring(prodavac1, "Dodavanje", 100 + i);
             }
         }
 
@@ -30,5 +34,6 @@ namespace TestProject1
                 trznica.RadSaProdavačimaCodeTuning1(prodavac1, "Dodavanje", 100 + i);
             }
         }
+
     }
 }
