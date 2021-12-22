@@ -87,6 +87,7 @@ namespace Pijaca
             štandovi.Add(štand);
         }
 
+        
         public void IzvršavanjeKupovina(Štand š, List<Kupovina> kupovine, string sigurnosniKod)
         {
             Štand štand = štandovi.Find(št => št.Prodavač == š.Prodavač);
@@ -109,6 +110,31 @@ namespace Pijaca
 
             Prodavač prodavač = štand.Prodavač;
             prodavač.RegistrujPromet(sigurnosniKod, ukupanPromet, najranijaKupovina, najkasnijaKupovina);
+        }
+
+        // REFAKTORING
+        // ARMIN BEGIC
+        public void IzvršavanjeKupovina1(Štand š, List<Kupovina> kupovine, string sigurnosniKod)
+        {
+            Štand štand = štandovi.Find(št => št.Prodavač == š.Prodavač);
+            if (štand == null)
+                throw new ArgumentException("Unijeli ste štand koji nije registrovan!");
+
+            DateTime najranijaKupovina = kupovine[0].DatumKupovine, najkasnijaKupovina = kupovine[0].DatumKupovine;
+            double ukupanPromet = 0;
+
+            foreach (var kupovina in kupovine)
+            {
+                if (kupovina.DatumKupovine < najranijaKupovina)
+                    najranijaKupovina = kupovina.DatumKupovine;
+                else if (kupovina.DatumKupovine > najkasnijaKupovina)
+                    najkasnijaKupovina = kupovina.DatumKupovine;
+                ukupanPromet += kupovina.UkupnaCijena;
+
+                štand.RegistrujKupovinu(kupovina);
+            }
+
+            štand.Prodavač.RegistrujPromet(sigurnosniKod, ukupanPromet, najranijaKupovina, najkasnijaKupovina);
         }
 
         public void NaručiProizvode(Štand štand, List<Proizvod> proizvodi, List<int> količine, List<DateTime> rokovi, bool svi = false)
