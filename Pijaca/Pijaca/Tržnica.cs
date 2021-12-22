@@ -254,6 +254,51 @@ namespace Pijaca
                 throw new InvalidOperationException("Unijeli ste nepoznatu opciju!");
         }
 
+        // ARMIN BEGIC
+        // Izbacivanje kompleksnog uslova iz if - tuning logičkih iskaza 
+        // Dodana varijabla brojProdavačaImena koja unutar postojeće foreach petlje dodaje i broj prodavača istog imena
+        // Ssmanjena kompleksnost if uslova, i izbjegnut dodatni prolazak kroz listu prodavača
+
+        public void RadSaProdavačimaCodeTuning2(Prodavač p, string opcija, double najmanjiPromet)
+        {
+            if (p == null)
+                throw new ArgumentNullException("Morate unijeti informacije o prodavaču!");
+
+            Prodavač postojeći = null;
+            int brojProdavačaImena = 0; 
+            foreach (var prodavač in prodavači)
+            {
+                if (prodavač.Ime == p.Ime)
+                {
+                    brojProdavačaImena++;
+                    if (prodavač.UkupniPromet == p.UkupniPromet)
+                        postojeći = prodavač;
+                }
+            }
+
+
+            if (opcija == "Dodavanje")
+            {
+                if (postojeći != null || brojProdavačaImena != 0)
+                    throw new InvalidOperationException("Nemoguće dodati prodavača kad već postoji registrovan!");
+                else
+                    prodavači.Add(p);
+            }
+            else if (opcija == "Izmjena" || opcija == "Brisanje")
+            {
+                if (postojeći == null || brojProdavačaImena == 0)
+                    throw new FormatException("Nemoguće izmijeniti tj. obrisati prodavača koji nije registrovan!");
+                else
+                {
+                    prodavači.Remove(postojeći);
+                    if (opcija == "Izmjena")
+                        prodavači.Add(p);
+                }
+            }
+            else
+                throw new InvalidOperationException("Unijeli ste nepoznatu opciju!");
+        }
+
         #endregion
     }
 }
