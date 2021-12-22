@@ -32,7 +32,7 @@ namespace TestProject1
 
         }
 
-
+        
         //ZADATAK 3
         //WHITEBOX
 
@@ -108,5 +108,102 @@ namespace TestProject1
             trznica.NaručiProizvode(trznica.Štandovi[0], proizvodiDrugaciji, kolicine, rokovi, false);
 
         }
+        
+        // ARMIN BEGIC
+        // Obuhvat uslova 
+        // proizvodi.Count != količine.Count | proizvodi.Count != rokovi.Count | !svi | pr == null |
+        //                T                  |                  X              |   X  |      X     | 1
+        //                N                  |                  T              |   X  |      X     | 2
+        //                N                  |                  N              |   N  |      X     | 3
+        //                N                  |                  N              |   T  |      T     | 4
+        //                N                  |                  N              |   T  |      N     | 5
+
+
+        // ARMIN BEGIC 1
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestNaruciProizvodeOU1()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            trznica.OtvoriŠtand(prodavac, proizvodi, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5, 6, 3, 1};
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10), new DateTime(2023, 1, 5), new DateTime(2023, 1, 10) };
+            trznica.NaručiProizvode(trznica.Štandovi[0], proizvodi, kolicine, rokovi, false );
+        }
+
+        // ARMIN BEGIC 2
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestNaruciProizvodeOU2()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            trznica.OtvoriŠtand(prodavac, proizvodi, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5, 6, 3 };
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10), new DateTime(2023, 1, 5)};
+            trznica.NaručiProizvode(trznica.Štandovi[0], proizvodi, kolicine, rokovi, false );
+        }
+
+        // ARMIN BEGIC 3
+        [TestMethod]
+        public void TestNaruciProizvodeOU3()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            trznica.OtvoriŠtand(prodavac, proizvodi, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5, 6, 3 };
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10), new DateTime(2023, 1, 5), new DateTime(2023, 1, 10) };
+            trznica.NaručiProizvode(trznica.Štandovi[0], proizvodi, kolicine, rokovi, true);
+
+            Assert.AreEqual(0, trznica.Štandovi[0].Proizvodi[0].OčekivanaKoličina);
+            Assert.AreEqual(0, trznica.Štandovi[0].Proizvodi[1].OčekivanaKoličina);
+            Assert.AreEqual(0, trznica.Štandovi[0].Proizvodi[2].OčekivanaKoličina);
+        }
+
+        // ARMIN BEGIC 4
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestNaruciProizvodeOU4()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            trznica.OtvoriŠtand(prodavac, new List<Proizvod>(), new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5, 6, 3 };
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10), new DateTime(2023, 1, 5), new DateTime(2023, 1, 10) };
+            trznica.NaručiProizvode(trznica.Štandovi[0], proizvodi, kolicine, rokovi, false);
+        }
+
+        // ARMIN BEGIC 5
+        [TestMethod]
+        public void TestNaruciProizvodeOU5()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            trznica.OtvoriŠtand(prodavac, proizvodi, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5, 6, 3 };
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10), new DateTime(2023, 1, 5), new DateTime(2023, 1, 10) };
+            trznica.NaručiProizvode(trznica.Štandovi[0], proizvodi, kolicine, rokovi, false);
+
+            Assert.AreEqual(kolicine[0], trznica.Štandovi[0].Proizvodi[0].OčekivanaKoličina);
+            Assert.AreEqual(rokovi[0], trznica.Štandovi[0].Proizvodi[0].DatumOčekivaneKoličine);
+
+            Assert.AreEqual(kolicine[1], trznica.Štandovi[0].Proizvodi[1].OčekivanaKoličina);
+            Assert.AreEqual(rokovi[1], trznica.Štandovi[0].Proizvodi[1].DatumOčekivaneKoličine);
+
+            Assert.AreEqual(kolicine[2], trznica.Štandovi[0].Proizvodi[2].OčekivanaKoličina);
+            Assert.AreEqual(rokovi[2], trznica.Štandovi[0].Proizvodi[2].DatumOčekivaneKoličine);
+        }
+
     }
 }
