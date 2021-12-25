@@ -46,5 +46,22 @@ namespace TestProject1
             }
         }
 
+
+        [TestMethod]
+        public void TestRadSaProdavacimaCodeTuning3()
+        {
+            Tržnica trznica = new Tržnica();
+            for (int i = 0; i < 50000; i++)
+            {
+                Prodavač prodavac1 = new Prodavač("Ismail" + i, "Sifra", DateTime.Now.AddDays(-45), 40);
+                
+                int x = 0;
+                
+                trznica.RadSaProdavačimaCodeTuning3(prodavac1, "Dodavanje", 100 + i);
+
+                int y = 0;
+            }
+        }
+
     }
 }

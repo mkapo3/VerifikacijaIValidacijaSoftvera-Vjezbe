@@ -96,7 +96,7 @@ namespace Pijaca
                     throw new FormatException("Nemoguće izmijeniti tj. obrisati prodavača koji nije registrovan!");
                 else
                 {
-                    prodavači.Remove(prodavači.Find(prod => prod.Ime == p.Ime));
+                    prodavači.Remove(prodavači.Find(prod => prod.Ime == p.Ime && prod.UkupniPromet == p.UkupniPromet));
                     if (opcija == "Izmjena")
                         prodavači.Add(p);
                 }
@@ -336,20 +336,23 @@ namespace Pijaca
             if (p == null)
                 throw new ArgumentNullException("Morate unijeti informacije o prodavaču!");
 
+            Prodavač postojeci = null;
+            postojeci = prodavači.Find(prod => prod.Ime == p.Ime && prod.UkupniPromet == p.UkupniPromet);
+
             if (opcija == "Dodavanje")
             {
-                if (p.UkupniPromet < najmanjiPromet || prodavači.FindAll(prod => prod.Ime == p.Ime).Count > 0)
+                if (p.UkupniPromet < najmanjiPromet || postojeci != null)
                     throw new InvalidOperationException("Nemoguće dodati prodavača kad već postoji registrovan!");
                 else
                     prodavači.Add(p);
             }
             else if (opcija == "Izmjena" || opcija == "Brisanje")
             {
-                if (prodavači.FindAll(prod => prod.Ime == p.Ime).Count == 0)
+                if (postojeci == null)
                     throw new FormatException("Nemoguće izmijeniti tj. obrisati prodavača koji nije registrovan!");
                 else
                 {
-                    prodavači.Remove(prodavači.Find(prod => prod.Ime == p.Ime));
+                    prodavači.Remove(postojeci);
                     if (opcija == "Izmjena")
                         prodavači.Add(p);
                 }
