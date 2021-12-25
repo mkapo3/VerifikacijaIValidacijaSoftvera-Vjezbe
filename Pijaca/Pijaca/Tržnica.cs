@@ -76,6 +76,34 @@ namespace Pijaca
             else
                 throw new InvalidOperationException("Unijeli ste nepoznatu opciju!");
         }
+        //ismail icanovic
+
+        public void RadSaProdavačimaRefactoring(Prodavač p, string opcija, double najmanjiPromet)
+        {
+            if (p == null)
+                throw new ArgumentNullException("Morate unijeti informacije o prodavaču!");
+
+            if (opcija == "Dodavanje")
+            {
+                if (prodavači.FindAll(prod => prod.Ime == p.Ime).Count > 0)
+                    throw new InvalidOperationException("Nemoguće dodati prodavača kad već postoji registrovan!");
+                else
+                    prodavači.Add(p);
+            }
+            else if (opcija == "Izmjena" || opcija == "Brisanje")
+            {
+                if (prodavači.FindAll(prod => prod.Ime == p.Ime).Count == 0)
+                    throw new FormatException("Nemoguće izmijeniti tj. obrisati prodavača koji nije registrovan!");
+                else
+                {
+                    prodavači.Remove(prodavači.Find(prod => prod.Ime == p.Ime));
+                    if (opcija == "Izmjena")
+                        prodavači.Add(p);
+                }
+            }
+            else
+                throw new InvalidOperationException("Unijeli ste nepoznatu opciju!");
+        }
 
         public void OtvoriŠtand(Prodavač p, List<Proizvod> pr, DateTime rok)
         {
