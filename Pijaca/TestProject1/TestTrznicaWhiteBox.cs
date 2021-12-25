@@ -31,7 +31,7 @@ namespace TestProject1
 
 
         }
-
+        /*
         
         //ZADATAK 3
         //WHITEBOX
@@ -205,5 +205,125 @@ namespace TestProject1
             Assert.AreEqual(rokovi[2], trznica.Štandovi[0].Proizvodi[2].DatumOčekivaneKoličine);
         }
 
+        */
+
+        //ismail ičanovic 
+
+ 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestNaruciProizvodeOU11()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            trznica.OtvoriŠtand(prodavac, proizvodi, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5, 6, 3, 1 };
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10), new DateTime(2023, 1, 5), new DateTime(2023, 1, 10) };
+            trznica.NaručiProizvode(trznica.Štandovi[0], proizvodi, kolicine, rokovi, false);
+        }
+
+ 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestNaruciProizvodeOU22()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            trznica.OtvoriŠtand(prodavac, proizvodi, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5, 6, 3 };
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10), new DateTime(2023, 1, 5) };
+            trznica.NaručiProizvode(trznica.Štandovi[0], proizvodi, kolicine, rokovi, false);
+        }
+
+        [TestMethod]
+        public void TestNaruciProizvodeOU33()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            trznica.OtvoriŠtand(prodavac, new List<Proizvod>() {}, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { };
+            List<DateTime> rokovi = new List<DateTime>() { };
+            trznica.NaručiProizvode(trznica.Štandovi[0], new List<Proizvod>() { }, kolicine, rokovi, true);
+
+            Assert.AreEqual(0, trznica.Štandovi[0].Proizvodi.Count);
+
+        }
+
+        [TestMethod]
+        public void TestNaruciProizvodeOU44()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            Proizvod p = new Proizvod(Namirnica.Voće, "Kruska", 5, new DateTime(2021, 5, 5), 2, true);
+            trznica.OtvoriŠtand(prodavac, new List<Proizvod>() { p }, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5 };
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10) };
+            trznica.NaručiProizvode(trznica.Štandovi[0], new List<Proizvod>() { p }, kolicine, rokovi, true);
+
+            Assert.AreEqual(0, trznica.Štandovi[0].Proizvodi[0].OčekivanaKoličina);
+
+        }
+
+
+        [TestMethod]
+        public void TestNaruciProizvodeOU55()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            Proizvod p = new Proizvod(Namirnica.Voće, "Kruska", 5, new DateTime(2021, 5, 5), 2, true);
+            trznica.OtvoriŠtand(prodavac, new List<Proizvod>() { p }, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5 };
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10) };
+            trznica.NaručiProizvode(trznica.Štandovi[0], new List<Proizvod>() { p }, kolicine, rokovi, false);
+
+            Assert.AreEqual(5, trznica.Štandovi[0].Proizvodi[0].OčekivanaKoličina);
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestNaruciProizvodeOU66()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            trznica.OtvoriŠtand(prodavac, new List<Proizvod>() { new Proizvod(Namirnica.Voće, "Kruska", 5, new DateTime(2021, 5, 5), 2, true) }, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5 };
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10) };
+            trznica.NaručiProizvode(trznica.Štandovi[0], new List<Proizvod>() { new Proizvod(Namirnica.Voće, "Kruska", 5, new DateTime(2021, 5, 5), 2, true) }, kolicine, rokovi, false);
+
+            Assert.AreEqual(0, trznica.Štandovi[0].Proizvodi[0].OčekivanaKoličina);
+
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestNaruciProizvodeOU77()
+        {
+            Tržnica trznica = new Tržnica();
+            Prodavač prodavac = new Prodavač("Armin", "Sifra", DateTime.Now.AddDays(-45), 40);
+            trznica.RadSaProdavačimaRefaktoring(prodavac, "Dodavanje", 200);
+            Proizvod p = new Proizvod(Namirnica.Voće, "Kruska", 5, new DateTime(2021, 5, 5), 2, true);
+            trznica.OtvoriŠtand(prodavac, new List<Proizvod>() { p,new Proizvod(Namirnica.Voće, "Kruska", 5, new DateTime(2021, 5, 5), 2, true) }, new DateTime(2023, 1, 1));
+
+            List<int> kolicine = new List<int>() { 5 };
+            List<DateTime> rokovi = new List<DateTime>() { new DateTime(2023, 1, 10), new DateTime(2023, 1, 10) };
+            trznica.NaručiProizvode(trznica.Štandovi[0], new List<Proizvod>() { p, new Proizvod(Namirnica.Voće, "Kruska", 5, new DateTime(2021, 5, 5), 2, true) }, kolicine, rokovi, false);
+
+        }
+
+        
     }
 }
