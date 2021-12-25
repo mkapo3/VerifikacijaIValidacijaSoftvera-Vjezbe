@@ -31,7 +31,7 @@ namespace TestProject1
 
 
         }
-        /*
+        
         
         //ZADATAK 3
         //WHITEBOX
@@ -205,7 +205,7 @@ namespace TestProject1
             Assert.AreEqual(rokovi[2], trznica.Štandovi[0].Proizvodi[2].DatumOčekivaneKoličine);
         }
 
-        */
+       
 
         //ismail ičanovic 
 
