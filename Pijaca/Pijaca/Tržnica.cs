@@ -341,7 +341,7 @@ namespace Pijaca
 
             if (opcija == "Dodavanje")
             {
-                if (p.UkupniPromet < najmanjiPromet || postojeci != null)
+                if (postojeci != null)
                     throw new InvalidOperationException("Nemoguće dodati prodavača kad već postoji registrovan!");
                 else
                     prodavači.Add(p);

@@ -55,11 +55,7 @@ namespace TestProject1
             {
                 Prodavač prodavac1 = new Prodavač("Ismail" + i, "Sifra", DateTime.Now.AddDays(-45), 40);
                 
-                int x = 0;
-                
                 trznica.RadSaProdavačimaCodeTuning3(prodavac1, "Dodavanje", 100 + i);
-
-                int y = 0;
             }
         }
 
